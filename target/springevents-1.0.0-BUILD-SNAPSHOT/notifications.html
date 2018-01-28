@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id = "messages"></div>
+</body>
+<script>
+
+var eventSource = null;
+eventSource = new EventSource("http://localhost:8080/springwebsocket/getNotifications");
+eventSouce.open= function () {alert("Connected")};
+eventSource.onmessage = function (message) {
+	alert(JSON.stringify(message))
+	document.getElementById("messages").innerHTML = message;
+	}
+eventSource.onerror = function () { alert("Error")}
+</script>
+</html>

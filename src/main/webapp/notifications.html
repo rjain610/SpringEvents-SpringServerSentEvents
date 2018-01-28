@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Admin dashboard</h2>          
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Notifications</th>
+      </tr>
+    </thead>
+    <tbody id ="td">
+    </tbody>
+  </table>
+</div>
+
+</body>
+<script>
+
+		var eventSource = null;
+		// continuously listen to the address 
+		eventSource = new EventSource(
+				"http://localhost:8080/springevents/getNotifications.do");
+		eventSource.open = function() {
+			alert("Connected")
+		};	
+		eventSource.onmessage = function(message) {
+			console.log(message);
+			$("#td").append("<tr><td>" + message.data + "</tr></td>");
+		}
+		eventSource.onerror = function() {
+			console.log("error");
+		}
+	
+</script>
+</html>
